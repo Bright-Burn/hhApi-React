@@ -1,10 +1,12 @@
 import React, {useContext} from 'react';
 import {ContextApp} from "../../reducer/reducer";
 
-const Page = ({handleSearch}) => {
+import './Pages.css'
+
+const Pages = ({handleSearch}) => {
 
     const {state, dispatch} = useContext(ContextApp);
-    const {pagesTotal, isVacancyLoaded} = state;
+    const {pagesTotal, isVacancyLoaded, currentPage} = state;
 
     if (isVacancyLoaded) {
     let pages = [];
@@ -12,20 +14,28 @@ const Page = ({handleSearch}) => {
         pages.push(i)
     }
     return (
-        <div>
-            {console.log(pages)}
-            {pages.map(page => <button key={page} onClick={(e) => handleSearch(
+        <div className='page'>
+            <span className='page__title'>Страница:</span>
+            <div>
+            {pages.map(page => <button key={page}
+                                       className={`page__button ${page === currentPage? 'page__button--active' : ''}`}
+                                       onClick={
+                currentPage !== page ?
+                (e) => handleSearch(
                 e,
-                (payload, pages) => dispatch({
+                (payload, pages,currentPage) => dispatch({
                     type: 'HANDLE__SEARCH',
                     payload,
-                    pages
+                    pages,
+                    currentPage,
                 }),
-                page)}>{page}</button>)}
+                page) : false}
+            >{page}</button>)}
+            </div>
         </div>
     );
     }
     return false
 };
 
-export default Page;
+export default Pages;

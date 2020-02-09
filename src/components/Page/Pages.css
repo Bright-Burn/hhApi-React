@@ -1,0 +1,17 @@
+.page {
+    margin-bottom: 2rem;
+
+}
+.page__title {
+    display: block;
+    margin-bottom: 1rem;
+
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+.page__button:hover {
+    opacity: 0.6;
+}
+.page__button--active {
+    border-bottom: 3px solid #000;
+}
